@@ -5,46 +5,34 @@ import { callApi, BASEURL } from './api';
 class App extends Component {
   constructor() {
     super();
-    this.state = { A: 0, B: 0, RES: 0, error: "" };
+    this.state = { A: 0, B: 0, RES: 0 };
     this.getResponse = this.getResponse.bind(this);
-    this.handleError = this.handleError.bind(this);
   }
 
+  // ADD operation
   add() {
-    callApi("GET", BASEURL + `add/${this.state.A}/${this.state.B}`, "", this.getResponse, this.handleError);
+    callApi("GET", BASEURL + `add/${this.state.A}/${this.state.B}`, "", this.getResponse);
   }
 
-  sub() {
-    callApi("GET", BASEURL + `sub/${this.state.A}/${this.state.B}`, "", this.getResponse, this.handleError);
-  }
-
-  mul() {
-    callApi("GET", BASEURL + `mul/${this.state.A}/${this.state.B}`, "", this.getResponse, this.handleError);
-  }
-
-  div() {
-    callApi("GET", BASEURL + `div/${this.state.A}/${this.state.B}`, "", this.getResponse, this.handleError);
-  }
-
+  // Callback for API response
   getResponse(res) {
-    this.setState({ RES: res, error: "" });
+    this.setState({ RES: res });
   }
 
-  handleError(err) {
-    this.setState({ error: "⚠️ Failed to fetch result. Please check backend!" });
-  }
-
+  // Input change handler
   loadInputChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
   render() {
-    const { A, B, RES, error } = this.state;
+    const { A, B, RES } = this.state;
+
     return (
       <>
         <header>
           <div className="title">Simple Calculator</div>
         </header>
+
         <section>
           <table>
             <tbody>
@@ -75,22 +63,20 @@ class App extends Component {
               <tr>
                 <td>Result</td>
                 <td>
-                  {error ? <label style={{ color: "red" }}>{error}</label> : <label id="L1">{RES}</label>}
+                  <label id="L1">{RES}</label>
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>
-                  <button onClick={() => this.add()}>ADD</button>&nbsp;
-                  <button onClick={() => this.sub()}>SUB</button>&nbsp;
-                  <button onClick={() => this.mul()}>MUL</button>&nbsp;
-                  <button onClick={() => this.div()}>DIV</button>
+                  <button onClick={() => this.add()}>ADD</button>
                 </td>
               </tr>
             </tbody>
           </table>
         </section>
-        <footer>Copyright @ 2025. All rights reserved.</footer>
+
+        <footer>Copyright © 2025. All rights reserved.</footer>
       </>
     );
   }
