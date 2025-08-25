@@ -35,10 +35,10 @@ input, label{
 }
 
 button{
-  background: green;
+  background: blue;
   color: white;
   font-weight: bold;
-  width: 70px;
+  width: 100px;
   height: 30px;
   border-radius: 5px;
 }
